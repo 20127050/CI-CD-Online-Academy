@@ -1,0 +1,91 @@
+<div class="course-content">
+    <div class="curriculum">
+        <span class="title">Curriculum</span>
+        <div class="mode">
+            <a href="/instructor/preview/?course={{course_id}}" class="active">Preview</a>
+            <a href="/instructor/add-course-description/?course={{course_id}}">Description</a>
+            <a href="/instructor/add-course-content?course={{course_id}}">Content</a>
+        </div>
+    </div>
+    <div class="section">
+        {{#each this.sections}}
+         <form class="section-heading" action="{{../url}}&section={{this._id}}" method = "post">
+            <div class="section-title">
+                <input type="text" class="txtSectionTitle" name="section_title" value="{{this.title}}">
+            </div>
+        </form>
+        {{#each lessons}}
+        <div class="lesson">
+            <span class="lesson-title"><img src="/assets/svg/instructor/lesson.svg" alt="lesson">{{title}}</span>
+            <div class="preview-lesson-content">
+                {{!-- <form action="{{../../url}}&lesson={{this._id}}" method="get">
+                    <button name="requestAction" value="preview_lesson" class="preview-lesson-btn" type="submit">PREVIEW</button>
+                </form> --}}
+                <a href="{{../../url}}&lesson={{this._id}}" class = "preview-lesson-btn">PREVIEW</a>
+                {{!-- <button name="requestAction" value="preview_lesson" class="preview-lesson-btn" type="submit">PREVIEW</button> --}}
+            </div>
+        </div>
+        {{/each}}
+        {{/each}}
+    </div>
+    <div class="page-group">
+        {{#if prev_page}}
+            <a class="page-items" href="?course={{course_id}}&page={{prev_page}}"><i class="fa-solid fa-chevron-left"></i></a>
+        {{/if}}
+        {{#each pageList}}
+            {{#if (eq this "...")}}
+            <span class="page-items">{{this}}</span>
+            {{else}}
+            <a class="page-items{{#if (eq ../page this)}} active{{/if}}" href="?course={{../course_id}}&page={{this}}">{{this}}</a>
+            {{/if}}
+        {{/each}}
+        {{#if next_page}}
+            <a class="page-items" href="?course={{course_id}}&page={{next_page}}"><i class="fa-solid fa-chevron-right"></i></a>
+        {{/if}}
+    </div>
+</div>
+{{!-- backdrop & video--}}  
+<div class="{{#if lesson.video}}show {{#else}}hide {{/else}}{{/if}}backdrop">
+    <video src={{lesson.video}} id = {{lesson._id}} controls></video>
+</div>
+<script>
+    // if user click preview button
+    $(".preview-lesson-btn").click(() => {
+        $('.backdrop').removeClass("hide");
+        $('.backdrop').addClass("show");
+    })
+    //  if user click backdrop
+    $(".backdrop").click(() => {
+        $('.backdrop').removeClass("show");
+        $('.backdrop').addClass("hide");
+        $('#{{lesson._id}}').trigger('pause');
+    })
+
+    $('#{{lesson._id}}').click((event) => {
+        event.stopPropagation();
+    });
+    
+
+    // display message when user upload file
+   
+</script>
+
+ {{!-- if ("{{message}}" == "success") {
+        alert("Your change was saved successfully...");
+        window.location.replace("http://localhost:5000/instructor/add-course-content/?course={{course_id}}&page={{page}}");
+    }
+    else if ("{{message}}" == "You need to add your course description first. Please try again!")
+    {
+        alert("{{message}}");
+        window.location.replace("http://localhost:5000/instructor/add-course-description");
+    }
+    else if ("{{message}}" == "finish")
+    {
+        alert("Congratulations! You finally finished this course and you can update later whatever you want.");
+        window.location.replace("http://localhost:5000/instructor/add-course-content/?course={{course_id}}&page={{page}}");
+    }
+    // if failed
+    else if ("{{message}}" != "success" && ("{{message}}" != "")) {
+        alert("{{message}}");
+        window.location.replace("http://localhost:5000/instructor/add-course-content/?course={{course_id}}&page={{page}}");
+    } --}}

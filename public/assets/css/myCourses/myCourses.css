@@ -1,0 +1,220 @@
+.myCourses{
+  min-height: 100vh;
+}
+
+.myCourses > header {
+  width: 100%;
+  height: 15rem;
+  background-color: #ebfbee;
+  padding-top: 2.8rem;
+  padding-left: 10rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.myCourses > header > .title {
+  text-transform: uppercase;
+  font-size: 28px;
+  font-weight: 700;
+  color: #00a551;
+}
+
+.myCourses > header > .menu {
+  display: flex;
+  /* align-items: center; */
+  /* background-color: aqua; */
+  gap: 7.2rem;
+}
+
+.myCourses > header > .menu > p,
+.myCourses > header > .menu >a {
+  font-size: 17px;
+  font-weight: 700;
+  color: #100967;
+  /* background-color: yellow; */
+  height: 3rem;
+  margin: 0;
+  box-sizing: border-box;
+  border-bottom: 5px solid transparent;
+  cursor: pointer;
+}
+
+.wishlistMenuChosen {
+  border-bottom: 5px solid #00a551 !important;
+}
+
+.myCourses > main {
+  padding: 5rem 6.4rem;
+  display: flex;
+  /* justify-content: space-between; */
+  flex-wrap: wrap;
+  gap: 5.4rem;
+}
+
+.myCourses > main > .courseItem {
+  width: 30rem;
+  height: 37rem;
+  border-radius: 15px;
+  overflow: hidden;
+  border: 1px solid rgb(227, 227, 227);
+  box-sizing: border-box;
+  cursor: pointer;
+  position: relative;
+}
+
+.myCourses > main > .courseItem > .course-card-overlay {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  inset: 0;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1.5rem;
+  background-color: rgba(44, 44, 44, .35);
+  -webkit-backdrop-filter: blur(.25rem);
+      backdrop-filter: blur(.25rem);
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1;
+  transition: all .25s ease-in-out;
+}
+.course-card-overlay > .button-cs { 
+  width: 52%;
+  text-align: center;
+  padding: 1rem 2.3rem;
+  box-shadow: 0px .5rem .4rem rgba(0, 0, 0, 0.4);
+  border-radius: 1rem;
+  z-index: 1;
+}
+
+.course-card-overlay > .button-cs.learning {
+  background-color: #009fa5;
+  color: white;
+}
+.course-card-overlay > .button-cs.learning:hover {
+  background-color: #00787c;
+}
+
+.myCourses > main > .courseItem:hover .course-card-overlay {
+  opacity: 1;
+  visibility: visible;
+}
+
+.myCourses > main > .courseItem > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-height: 17rem;
+}
+
+.myCourses > main > .courseItem > .content {
+  padding: 1rem 1.8rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.myCourses > main > .courseItem > .status {
+  position: absolute;
+  top: 0;
+  text-transform: capitalize;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: white;
+  padding: .8rem 1.8rem;
+  border-radius: 0rem 0rem 1.5rem 0rem;
+}
+
+.myCourses > main > .courseItem > .status.finish {
+  background-color: #008d8d;
+}
+  
+.myCourses > main > .courseItem > .content > .name {
+  font-size: 1.7rem;
+  font-weight: bold;
+  height: 50px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  /* white-space: nowrap; */
+  margin: 0;
+}
+
+.myCourses > main > .courseItem > .content > .author--rate{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.myCourses > main > .courseItem > .content > .author--rate > .author {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 5px;
+}
+
+.myCourses > main > .courseItem > .content > .author--rate > .author > .author-icon{
+  width: 20px;
+  height: 14px;
+}
+
+.myCourses > main > .courseItem > .content > .author--rate > .author > p {
+  overflow: hidden;
+  display: block;
+  height: 16px;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 150px;
+  margin: 0;
+}
+
+.myCourses > main > .courseItem > .content > .author--rate > .rate{
+  display: flex;
+  align-items: center;
+}
+
+.myCourses > main > .courseItem > .content > .category {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.myCourses > main > .courseItem > .content > .category > p {
+  font-size: 14px;
+  margin: 0;
+}
+
+.myCourses > main > .courseItem > .content > .complete > p {
+  font-size: 14px;
+  margin: 0;
+}
+
+.myCourses > main > .courseItem > .content > .complete > .progress-bar {
+  width: 100%;
+  height: .4rem;
+  background-color: #e3e3e3;
+  margin: 1.5rem 0rem;
+  margin-bottom: .5rem;
+  position: relative;
+}
+
+.myCourses > main > .courseItem > .content > .complete > .progress-bar > .progress-bar-fill {
+  width: 0%;
+  height: 100%;
+  background-color: #3ac97f;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.myCourses > main > .courseItem > .content > .date {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+}
+
+.myCourses > main > .courseItem > .content > .date > p{
+  margin: 0;
+}

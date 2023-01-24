@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    {{!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0"> --}}
+    <title>Online Academy{{#if HTMLTitle}} - {{HTMLTitle}}{{/if}}</title>
+
+    {{#if (eq handlebars "learning/course_learning")}}
+    <script type="text/javascript">
+        const currentCourse = `{{{watch_info.current_course}}}`;
+        const currentLesson = `{{{watch_info.url}}}`;
+        const currentWatch = JSON.parse(localStorage.getItem('{{authUser._id}}_current_watch')) || {};
+
+        const sectionList  = JSON.parse(decodeURIComponent(`{{{watch_info.course_sections}}}`));
+
+        const lesson_cur = sectionList.find(section => section.lessons.find(lesson => lesson.url === currentWatch[currentCourse]));
+
+        if (!lesson_cur) {
+            delete currentWatch[currentCourse];
+            localStorage.setItem('{{authUser._id}}_current_watch', JSON.stringify({
+                ...currentWatch
+            }));
+        }
+
+        const currentWatchCourse = Object.keys(currentWatch).length > 0 && currentWatch[currentCourse] ? currentWatch[currentCourse] : null;
+        
+        if (currentWatch && currentWatchCourse && currentWatchCourse !== currentLesson) {
+            window.location.replace(currentWatchCourse);
+        }
+        else if (!currentWatch || !currentWatchCourse) {
+            localStorage.setItem('{{authUser._id}}_current_watch', JSON.stringify({
+                ...currentWatch,
+                [currentCourse]: currentLesson
+            }));
+        }
+    </script>
+    {{/if}}
+
+    {{!-- BEGIN GLOBAL --}}
+    <script src="https://kit.fontawesome.com/46668bc562.js" crossorigin="anonymous"></script>
+    
+    <link rel="stylesheet" href="/assets/bootstrap.min.css" type="text/css" />
+    <script src="/assets/jquery.min.js"></script>
+    <script src="/assets/bootstrap.min.js"></script>
+    
+    <link rel="stylesheet" href="/assets/css/index.css" type="text/css" />
+    {{!-- END GLOBAL --}}
+    <link rel="stylesheet" href="/assets/css/home/home.css" type="text/css" />
+    
+    {{#if (eq handlebars "payment/payment")}}
+    <link rel="stylesheet" href="/assets/css/payment/shoppingCart.css" type="text/css" />
+    {{/if}}
+
+    {{#if (eq handlebars "userProfile/userProfile")}}
+    <link rel="stylesheet" href="/assets/css/userProfile/userProfile.css" type="text/css" />
+    {{/if}}
+
+    {{#if (eq handlebars "myCourses/myCourses")}}
+    <link rel="stylesheet" href="/assets/css/myCourses/myCourses.css" type="text/css" />
+    {{/if}}
+
+    {{#if (eq handlebars "wishlist/wishlist")}}
+    <link rel="stylesheet" href="/assets/css/wishlist/wishlist.css" type="text/css" />
+    {{/if}}
+
+    {{#if (eq handlebars "courseDetail/courseDetail")}}
+    <link rel="stylesheet" href="/assets/css/courseDetail/courseDetail.css" type="text/css" />
+    {{/if}}
+
+
+    {{#if (eq handlebars "home/courses")}}
+    <link rel="stylesheet" href="/assets/css/home/courses.css" type="text/css" />
+    {{/if}}
+
+    {{#if (eq handlebars "learning/course_learning")}}
+    <link rel="stylesheet" href="/assets/css/learning/learning.css" type="text/css" />
+    {{/if}}
+
+    {{#if (eq handlebars "learning/course_learning")}}
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.3/plyr.css" type="text/css"  />
+    {{/if}}
+</head>
+<body>
+    {{> navbar }}
+    {{{ body }}}
+    {{> footer }}
+<script>
+   if (window.location.hash === "#_=_"){
+
+    // Check if the browser supports history.replaceState.
+    if (history.replaceState) {
+        // Keep the exact URL up to the hash.
+        var cleanHref = window.location.href.split("#")[0];
+        // Replace the URL in the address bar without messing with the back button.
+        history.replaceState(null, null, cleanHref);
+    } else {
+        // Well, you're on an old browser, we can get rid of the _=_ but not the #.
+        window.location.hash = "";
+    }
+}
+</script>
+</body>
+</html>

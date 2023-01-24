@@ -1,0 +1,183 @@
+<div
+    id="carouselHotView"
+    class="carousel slide"
+    data-bs-ride="carousel"
+>
+    <div class="carousel-indicators">
+        <button
+            type="button"
+            data-bs-target="#carouselHotView"
+            data-bs-slide-to="0"
+            class="active"
+            aria-current="true"
+            aria-label="Slide 1"
+        ></button>
+        <button
+            type="button"
+            data-bs-target="#carouselHotView"
+            data-bs-slide-to="1"
+            aria-label="Slide 2"
+        ></button>
+        <button
+            type="button"
+            data-bs-target="#carouselHotView"
+            data-bs-slide-to="2"
+            aria-label="Slide 3"
+        ></button>
+        <button
+            type="button"
+            data-bs-target="#carouselHotView"
+            data-bs-slide-to="3"
+            aria-label="Slide 4"
+        ></button>
+    </div>
+    <div class="carousel-inner">
+        {{#each hotCourse}}
+        <div class="carousel-item{{#if active}} active{{/if}}">
+            <div
+                class="bd-placeholder-img bd-placeholder-img-lg w-100 hot-card"
+            >
+                <div class="lecture-content">
+                    <img
+                        src="{{course_img}}"
+                        alt="{{course_name}}"
+                    />
+                    <div class="details">
+                        <div class="details__heading">
+                            <b>{{course_name}}</b>
+                            <span class="timer ms-auto">
+                                <i class="fa-regular fa-clock"></i>
+                                <span>{{course_date}}</span>
+                            </span>
+                            <span class="rates">
+                                <b>{{course_rate}}</b>
+                                <span class="flex">
+                                    {{#if (gt course_rate 0)}}
+                                        {{#if (gte course_rate 1)}}
+                                        <i class="fa-solid fa-star"></i>
+                                        {{else}}
+                                        <i class="fa-solid fa-star-half-stroke"></i>
+                                        {{/if}}
+                                    {{else}}
+                                        <i class="fa-regular fa-star"></i>
+                                    {{/if}}
+                                    
+                                    {{#if (gt course_rate 1)}}
+                                        {{#if (gte course_rate 2)}}
+                                        <i class="fa-solid fa-star"></i>
+                                        {{else}}
+                                        <i class="fa-solid fa-star-half-stroke"></i>
+                                        {{/if}}
+                                    {{else}}
+                                        <i class="fa-regular fa-star"></i>
+                                    {{/if}}
+
+                                    {{#if (gt course_rate 2)}}
+                                        {{#if (gte course_rate 3)}}
+                                        <i class="fa-solid fa-star"></i>
+                                        {{else}}
+                                        <i class="fa-solid fa-star-half-stroke"></i>
+                                        {{/if}}
+                                    {{else}}
+                                        <i class="fa-regular fa-star"></i>
+                                    {{/if}}
+
+                                    {{#if (gt course_rate 3)}}
+                                        {{#if (gte course_rate 4)}}
+                                        <i class="fa-solid fa-star"></i>
+                                        {{else}}
+                                        <i class="fa-solid fa-star-half-stroke"></i>
+                                        {{/if}}
+                                    {{else}}
+                                        <i class="fa-regular fa-star"></i>
+                                    {{/if}}
+
+                                    {{#if (gt course_rate 4)}}
+                                        {{#if (gte course_rate 5)}}
+                                        <i class="fa-solid fa-star"></i>
+                                        {{else}}
+                                        <i class="fa-solid fa-star-half-stroke"></i>
+                                        {{/if}}
+                                    {{else}}
+                                        <i class="fa-regular fa-star"></i>
+                                    {{/if}}
+                                </span>
+                            </span>
+                        </div>
+                        <div class="details__body">
+                            <div>
+                                <b>Introduce</b>
+                                <p>
+                                    {{course_description}}
+                                </p>
+                            </div>
+                            <div class="details__overview">
+                                <b>Overview</b>
+                                <div class="details__overview-ls">
+                                    <span class="overview__item">
+                                        <i class="fa-solid fa-video"></i>
+                                        <span>{{course_duration}}</span>
+                                    </span>
+                                    <span class="overview__item">
+                                        <i class="fa-solid fa-film"></i>
+                                        <span>{{course_lessons}}</span>
+                                    </span>
+                                    <span class="overview__item">
+                                        <i class="fa-solid fa-certificate"></i>
+                                        <span>Certificate of completion</span>
+                                    </span>
+                                    <span class="overview__item">
+                                        <i
+                                            class="fa-solid fa-mobile-screen"
+                                        ></i>
+                                        <span>Learn on any device</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <a class="button-cs" href="{{course_slug}}">More Details</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-review">
+                    <img
+                        src="{{course_img}}"
+                        alt="slide 1"
+                    />
+                </div>
+            </div>
+        </div>
+        {{/each}}
+        <div class="hot__course-overlay">
+            <div class="lecture-content"></div>
+            <div class="video-review">
+                <div class="player">
+                    <i class="fa-solid fa-play"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#carouselHotView"
+        data-bs-slide="prev"
+    >
+        <span aria-hidden="true"><i class="fa-solid fa-chevron-left"></i></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#carouselHotView"
+        data-bs-slide="next"
+    >
+        <span aria-hidden="true"><i
+                class="fa-solid fa-chevron-right"
+            ></i></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+<script>
+    $(function() { $('#carouselHotView').carousel({ interval: 6000, cycle: true }); });
+</script>

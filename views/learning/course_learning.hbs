@@ -1,0 +1,217 @@
+<div class="course-learning">
+    <div class="course-contents">
+        <div class="course-contents-heading">
+            <div class="course-contents-title">
+                <span>{{watch_info.section_name}}</span>
+                <span><i class="fa-solid fa-chevron-right"></i></span>
+                <span>{{watch_info.lesson_name}}</span>
+            </div>
+            <div class="course-contents-rating">
+                <button class="rate-btn"><i class="fa-regular fa-star"></i></button>
+                <button class="rate-btn"><i class="fa-regular fa-star"></i></button>
+                <button class="rate-btn"><i class="fa-regular fa-star"></i></button>
+                <button class="rate-btn"><i class="fa-regular fa-star"></i></button>
+                <button class="rate-btn"><i class="fa-regular fa-star"></i></button>
+            </div>
+        </div>
+        <div class="watch_course">
+            {{!-- <video id="player" playsinline>
+                <source src='{{watch_info.video}}'></source>
+            </video> --}}
+            {{> video id='learning-player' video=watch_info.video }}
+            <div class="toolbar">
+                <button type="button" class="toolbar-btn active">Description</button>
+                <button type="button" class="toolbar-btn">Reviews</button>
+                <button type="button" class="toolbar-btn">Discussion</button>
+                <button type="button" class="toolbar-btn">Resources</button>
+                <button type="button" class="toolbar-btn">Announcements</button>
+            </div>
+            <div class="viewbox">
+                <div class="author-info">
+                    <div class="avatar">
+                        <img width="50px" src="https://img-c.udemycdn.com/user/200_H/7799204_2091_5.jpg" alt={{course.author}} />
+                    </div>
+                    <div class="author-description">
+                        <div class="name">{{author.name}}</div>
+                        <div class="role">Lecture</div>
+                    </div>
+                </div>
+                <div>
+                    {{{course.details}}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="sticky-lectures">
+        <div class="course-lectures">
+            <div class="lecture-heading">
+                <b class="title">Course lectures</b>
+                <div class="progress-bar-group">
+                    <div class="progress-bar-status">
+                        <span class="progress-complete">{{progress.percent}}% Completed</span>
+                        <span class="progress-complete-percent-total">{{progress.value}} / {{progress.total}}</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-bar-fill" style="width: {{progress.percent}}%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="course-lectures-list">
+                {{#each course.lectures.sections}}
+                <div class="course-lectures-item">
+                    <input id="section-content-{{@index}}" class="hidden-section-content" hidden type="checkbox" style="display: none;" />
+                    <label for="section-content-{{@index}}" class="section-heading">
+                        <div class="section-title">
+                            <span class="section-index">{{#if (lt @index 9) }}0{{/if}}{{sum @index 1}}</span>
+                            <span class="section-name">{{this.title}}</span>
+                        </div>
+                        <div class="section-checkbox">
+                            <i class="fa-solid fa-chevron-down dropdown-btn"></i>
+                        </div>
+                    </label>
+                    <div class="section-content">
+                        {{#each this.lessons}}
+                        <div class="lesson-item">
+                            <div class="lesson-item-checkbox">
+                                <div class="checkbox-cs">
+                                    <input hidden readonly class="checkbox-input-cs-value" type="text" id="lesson-value-{{@../index}}-{{@index}}" value={{this._id}} />
+                                    <input class="checkbox-input-cs"{{#if (progress_find ../../progress.progressor _id)}} checked{{/if}} type="checkbox" id="lesson-{{@../index}}-{{@index}}" />
+                                    <label class="checkbox-label" for="lesson-{{@../index}}-{{@index}}">
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="lesson-item-content">
+                                <a href='{{this.url}}?section={{sum @../index 1}}' class="lesson-item-title">
+                                    {{this.title}}
+                                </a>
+                                <div class="lesson-item-time">
+                                    <span class="time-icon"><i class="fa-regular fa-circle-play"></i></span>
+                                    <span>{{this.duration}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+                {{/each}}
+                <form class="form-finish" method="POST" action='{{course.slug}}/learn/lecture/finish'>
+                    <button class="finish-btn" type="submit">Finish</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(() => {
+        const currentCourse = `{{{watch_info.current_course}}}`;
+        const currentWatch = JSON.parse(localStorage.getItem('{{authUser._id}}_current_watch')) || {};
+        
+        $(".course-learning > .sticky-lectures > .course-lectures > .course-lectures-list > .course-lectures-item > .section-content > .lesson-item > .lesson-item-content > .lesson-item-title")
+        .click((event) => {
+            localStorage.setItem('{{authUser._id}}_current_watch', JSON.stringify({
+                ...currentWatch,
+                [currentCourse]: $(event.currentTarget).val().split("?")[0]
+            }));
+        });
+
+        $('.course-learning > .sticky-lectures > .course-lectures > .course-lectures-list > .course-lectures-item > .section-content > .lesson-item > .lesson-item-checkbox > .checkbox-cs > .checkbox-input-cs')
+        .click((event) => {
+            const lesson_id = $(event.currentTarget).prev().val();
+            const status = $(event.currentTarget).is(':checked');
+            const course_id = `{{course._id}}`;
+
+            $.ajax({
+                url: '/course/learn/lecture/progress',
+                type: 'POST',
+                data: {
+                    course_id,
+                    lesson_id,
+                    status,
+                    slug_course: `{{course.slug}}`
+                },
+                success: (data) => {
+                    $('.course-learning > .sticky-lectures > .course-lectures > .lecture-heading > .progress-bar-group > .progress-bar-status > .progress-complete').text(`${data.progress.percent}% Completed`);
+                    $('.course-learning > .sticky-lectures > .course-lectures > .lecture-heading > .progress-bar-group > .progress-bar-status > .progress-complete-percent-total').text(`${data.progress.value} / ${data.progress.total}`);
+                    $('.course-learning > .sticky-lectures > .course-lectures > .lecture-heading > .progress-bar-group > .progress-bar > .progress-bar-fill').width(`${data.progress.percent}%`);
+                },
+                error: (err) => {
+                    window.location.replace(`{{course.slug}}`);
+                }
+            });
+        });
+
+        let $container = $('.course-learning > .sticky-lectures > .course-lectures > .course-lectures-list');
+
+        const section = parseInt(`{{watch_info.section}}`);
+        const lesson = `{{{watch_info.url}}}`;
+
+        $(".course-learning > .sticky-lectures > .course-lectures > .course-lectures-list > .course-lectures-item > .hidden-section-content").change((event) =>{
+            if ($(event.currentTarget).is(':checked') === true)
+                $container.animate({
+                    scrollTop: $(event.currentTarget).next().offset().top - $container.offset().top + $container.scrollTop()
+                }, 'slow');
+        });
+
+        if (section > 0) {
+            $(`#section-content-${section - 1}`).prop('checked', true);
+            
+            if (lesson !== '') {
+                let $lesson = $(`#section-content-${section - 1}`).parent().find(`.lesson-item a[href="${lesson}?section={{{watch_info.section}}}"]`);
+                $lesson.addClass('active');
+
+                setTimeout(() => {
+                    $container.animate({
+                        scrollTop: $lesson.offset().top - 15 - $container.offset().top + $container.scrollTop()
+                    });
+                }, 500);
+            }
+        }
+
+        const timerLoading = setInterval(() => {
+            if (player.duration) {
+
+                player.currentTime = JSON.parse(localStorage.getItem('{{authUser._id}}__current'))[`{{{watch_info.current_lesson}}}`];
+                player.muted = false;
+
+                player.on('playing', () => {
+                    localStorage.setItem('{{authUser._id}}__current', JSON.stringify({
+                        ...JSON.parse(localStorage.getItem('{{authUser._id}}__current')),
+                        '{{{watch_info.current_lesson}}}': player.currentTime
+                    }));
+                });
+
+                player.on('pause', () => {
+                    localStorage.setItem('{{authUser._id}}__current', JSON.stringify({
+                        ...JSON.parse(localStorage.getItem('{{authUser._id}}__current')),
+                        '{{{watch_info.current_lesson}}}': player.currentTime
+                    }));
+                });
+
+                clearInterval(timerLoading);
+            }
+        }, 0);
+
+        player.on('error', () => {
+            clearInterval(timerLoading);
+        });
+
+        player.on('ended', () => {
+            const next_lesson = `{{{watch_info.next_lesson}}}`;
+            
+            const checkCourse = $(`.lesson-item a[href="${lesson}?section={{{watch_info.section}}}"]`).parent().prev().find('.checkbox-cs > .checkbox-input-cs')[0];
+            if (!$(checkCourse).is(':checked')) checkCourse.click();
+
+            if (next_lesson && next_lesson !== 'finished')
+                setTimeout(() => {$(`.lesson-item a[href="${next_lesson}"]`)[0].click()}, 1000);
+        });
+
+        $(window).on("beforeunload", () => { 
+            localStorage.setItem('{{authUser._id}}__current', JSON.stringify({
+                ...JSON.parse(localStorage.getItem('{{authUser._id}}__current')),
+                '{{{watch_info.current_lesson}}}': player.currentTime
+            }));
+        });
+    });
+</script>

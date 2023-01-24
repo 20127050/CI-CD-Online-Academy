@@ -1,0 +1,158 @@
+<div
+  class="card border-0"
+  style="width:98%; justify-content: center; margin: 0 auto; background: none;"
+>
+
+  <div class="card-header border-0 bg-white px-0" style="padding: 0;">
+    <div
+      style="display:flex; justify-content: space-between; align-items:center; padding-top: 1.5rem;"
+    >
+      <h1 style="font-weight:700;">Category</h1>
+    </div>
+    <form method="post" action="/admin/categories "id="addnewcategory">
+      <input
+        type="text"
+        placeholder="New category..."
+        class="newcat"
+        name="newtitle"
+      />
+      <button type="submit" class="but">Add new</button>
+    </form>
+    <script>
+      $('#addnewcategory').on('submit',function(e) { 
+        e.preventDefault();
+        const catName=$('.newcat').val();
+        if(catName.length===0){
+          alert('Invalid data');
+          return;
+        }
+        else{
+          $('#addnewcategory').off('submit').submit();
+        }
+      });
+    </script>
+    <div class="dropdown" style="margin-bottom: 1.5rem;">
+      <button
+        type="button"
+        class="btn btn-success dropdown-toggle"
+        data-toggle="dropdown"
+        style="background-color: #00A551; font-size: 1.6rem; font-weight: 600; padding: 0.5rem 1rem; "
+      >
+        Select category
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="/admin/categories">All categories</a>
+        {{#each this.category}}
+          <a
+            class="dropdown-item"
+            href="/admin/categories/category?slug={{slug}}"
+          >{{title}}</a>
+        {{/each}} 
+      </div>
+    </div>
+
+  </div>
+
+  <table id="category" class="cor" style="margin-top: 0;">
+
+    <tr class="none-shawdow">
+      <th >ID</th>
+      <th style="display:none;">idsub</th>
+      <th style="padding-right: 10rem;">Category</th>
+      <th style="padding-right: 10rem;">Subcategory</th>
+      <th>Course quantity</th>
+      <th style="width: 1rem;"></th>
+      <th style="width: 1rem;"></th>
+      <th style="width: 1rem;"></th>
+    </tr>
+
+    {{#each this.categories}}
+      <tr>
+        <td class="id" >{{_id}}</td>
+        <td class="idsub" style="display:none;">{{idsub}}</td>
+        <td class="name" >{{category}}</td>
+        <td class="subname" >{{subcategory}}</td>
+        <td>{{num_courses}}</td>
+
+        <td class="edit" style="text-align: center; padding: 0 1rem;">
+          <img src="/assets/svg/admin/edit.svg" alt="edit-icon" />
+        </td>
+
+        <td class="editsub" style="text-align: center; padding: 0;">
+          <img src="/assets/svg/admin/subcategory.svg" alt="editsub-icon" />
+        </td>
+
+        {{#if empty_courses}}
+
+          <td style="text-align: center; padding: 0 1rem;">
+            <form action="/admin/categories/delete/{{_id}}/{{idsub}}" method="post">
+              <button type="submit" style="border: none;">
+                <img src="/assets/svg/admin/delete.svg" alt="delete-icon" />
+              </button>
+            </form>
+          </td>
+        {{else}}
+          <td
+            style="text-align: center; padding: 0 1rem;"
+            data-toggle="modal"
+            data-target="#myModal"
+          >
+            <img src="/assets/svg/admin/delete.svg" alt="delete-icon" />
+          </td>
+        {{/if}}
+
+      </tr>
+    {{/each}}
+
+  </table>
+
+  <!-- Modal -->
+  <div class="modal" id="myModal">
+    <div
+      class="modal-dialog"
+      style="top: 50% !important; transform: translateY(-90%) !important"
+    >
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header" style="border:none; margin: 0 auto;">
+          <img src="/assets/svg/admin/error.svg" alt="error-icon" />
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body" style="margin: 0 auto;">
+          Can’t delete because this category included course
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    $('#category').on('click','.edit',function() { 
+      const id=$(this).siblings('.id').text();
+      const idsub=$(this).siblings('.idsub').text();
+    if($(this).siblings('.name').find('input').length){
+    $(this).siblings('.name').text($(this).siblings('.name').find('input').val());
+    } 
+    else { var content=$(this).siblings('.name').text(); 
+    var actionURL=`/admin/categories/edit/${id}/${idsub}`; 
+    var form=$("<form/>", { method: 'POST',action: actionURL, style: 'margin: 0; padding: 0', } ).append($("<input>", {
+    type:'text', name:'title', class:"editname", value: content, }).val(content))
+    $(this).siblings('.name').text('').append(form); } });
+
+    $('#category').on('click','.editsub',function() { 
+      const id=$(this).siblings('.id').text();
+      const idsub=$(this).siblings('.idsub').text();
+    if($(this).siblings('.subname').find('input').length){
+    $(this).siblings('.subname').text($(this).siblings('.subname').find('input').val());
+    } 
+    else { var content=$(this).siblings('.subname').text(); 
+    var actionURL= `/admin/categories/editsub/${id}/${idsub}`; 
+    var form=$("<form/>", { method: 'POST',action: actionURL, style: 'margin: 0; padding: 0', id: "editsubcategorymodal"} )
+    .append($("<input>", {type:'text', name:'subcat', class:"editname", value: content, }).val(content))
+    $(this).siblings('.subname').text('').append(form); } });
+
+  </script>
+
+</div>

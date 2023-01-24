@@ -1,0 +1,286 @@
+.wishlist{
+  min-height: 100vh;
+}
+
+.wishlist > header {
+  width: 100%;
+  height: 15rem;
+  background-color: #ebfbee;
+  padding-top: 2.8rem;
+  padding-left: 10rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.wishlist > header > .title {
+  text-transform: uppercase;
+  font-size: 28px;
+  font-weight: 700;
+  color: #00a551;
+}
+
+.wishlist > header > .menu {
+  display: flex;
+  /* align-items: center; */
+  /* background-color: aqua; */
+  gap: 7.2rem;
+}
+
+.wishlist > header > .menu > p,
+.wishlist > header > .menu > a {
+  font-size: 17px;
+  font-weight: 700;
+  color: #100967;
+  /* background-color: yellow; */
+  height: 3rem;
+  margin: 0;
+  box-sizing: border-box;
+  border-bottom: 5px solid transparent;
+  cursor: pointer;
+}
+
+.wishlistMenuChosen {
+  border-bottom: 5px solid #00a551 !important;
+}
+
+.wishlist > main {
+  padding: 5rem 6.4rem;
+  display: flex;
+  /* justify-content: space-between; */
+  flex-wrap: wrap;
+  gap: 5.4rem;
+}
+
+
+.wishlist > main > .course-item {
+  position: relative;   
+  display: inline-block;
+  background-color: white;
+  width: 28rem;
+  border-radius: 1.5rem;
+  border: .1rem solid #EBEBEB;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.wishlist > main >.course-item > .status {
+  position: absolute;
+  top: 0;
+  text-transform: capitalize;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: white;
+  padding: .7rem 1.2rem;
+  border-radius: 0rem 0rem 1.5rem 0rem;
+}
+
+.wishlist > main >.course-item > .status.best.seller {
+  background-color: #00A551;
+}
+.wishlist > main >.course-item > .status.new { 
+  background-color: #007ea5;
+}
+
+.wishlist > main >.course-item > .formPost {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  color: white;
+  font-size: 1.8rem;
+  z-index: 2; 
+}
+
+.wishlist > main >.course-item > .formPost > .but{
+  border: none;
+}
+
+.wishlist > main >.course-item> .formPost > .but > .icon{
+  color: white;
+}
+
+
+.wishlist > main >.course-item > .icon {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  color: white;
+  font-size: 1.8rem;
+  z-index: 2;
+}
+
+.wishlist > main >.course-item > .icon:hover { 
+  color: rgb(255, 96, 242);
+}
+
+.wishlist > main >.course-item > .course-card-overlay {
+  position: absolute;
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1.5rem;
+  background-color: rgba(44, 44, 44, .35);
+  -webkit-backdrop-filter: blur(.25rem);
+      backdrop-filter: blur(.25rem);
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1;
+  transition: all .25s ease-in-out;
+}
+
+.wishlist > main >.course-item:hover > .course-card-overlay {
+  opacity: 1;
+  visibility: visible;
+}
+
+.wishlist > main >.course-item > .course-card-overlay > .button-cs { 
+  position: absolute;
+  padding: 1rem 2.3rem;
+  box-shadow: 0px .5rem .4rem rgba(0, 0, 0, 0.4);
+  border-radius: 1rem;
+  z-index: 1;
+}
+
+.wishlist > main >.course-item > .course-card-img {
+  display: block;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  height: 100%;
+  max-height: 16.2rem;
+  overflow: hidden;
+  scale: 1.1;
+}
+
+.wishlist > main >.course-item > .card-main {
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;    
+  padding: .6rem 1.6rem;
+  padding-bottom: 1rem;
+}
+
+.wishlist > main >.course-item > .card-main > .card-footer {
+  display: flex;
+  align-items: flex-end;
+}
+
+.wishlist > main >.course-item > .card-main > .card-footer > .card-price {
+  position: relative;
+  display: flex;
+  gap: .3rem;
+  align-items: center;
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin-left: .5rem;
+}
+
+.wishlist > main >.course-item > .card-main > .card-footer > .card-price .remove-line {
+  position: absolute;
+  inset: 0;
+  top: 40%;
+  left: -.3rem;
+  right: .3rem;
+  border-radius: 10rem;
+  height: .2rem;
+  background-color: #D70404;
+  rotate: 10deg;
+  z-index: 2;
+}
+
+.wishlist > main >.course-item > .card-main > .card-footer > .card-price .price-number {
+  margin-right: .6rem;
+  font-size: 1.5rem;
+}
+
+.wishlist > main >.course-item > .card-main > .card-footer > .card-price .sale-number {
+  color: #E30000;
+  margin-left: .6rem;
+  font-size: 1.5rem;
+}
+
+.wishlist > main >.course-item > .card-main > .card-footer > .card-price .sale-number > span {
+  margin-left: -.3rem;
+}
+
+.wishlist > main >.course-item > .card-main > .card-footer > .card-price i {
+  font-size: 1.6rem;
+}
+
+.wishlist > main >.course-item > .card-main > .card-footer > .card-clock {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-left: auto;
+}
+
+.wishlist > main >.course-item > .card-main > .card-author {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 1.2rem;
+  gap: .6rem;
+  margin-bottom: .3rem;
+}
+
+.wishlist > main >.course-item > .card-main > .card-author > span {
+  display: block;
+  max-width: 60%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}  
+
+.wishlist > main >.course-item > .card-main > .card-author i {
+  margin-top: .1rem;
+}
+
+.wishlist > main >.course-item > .card-main > .card-details-ls {
+  display: flex;
+  gap: .8rem;
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.wishlist > main >.course-item > .card-main > .card-details-ls > .card-details-ls-icon,
+.wishlist > main >.course-item > .card-main > .card-details-ls > .card-details-ls-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .3rem;
+}
+
+.wishlist > main >.course-item > .card-main > .card-details-ls > .card-details-ls-content { 
+  width: 100%;
+  align-items: flex-start;
+  gap: .15rem;
+}
+
+.wishlist > main >.course-item > .card-main > .card-details-ls 
+> .card-details-ls-content 
+> .card-details-ls-item { 
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  gap: .8rem;
+}
+
+.wishlist > main >.course-item > .card-main > .card-details-ls 
+> .card-details-ls-content 
+> .card-details-ls-item > small {
+  font-size: 1rem;
+}
+
+.wishlist > main >.course-item > .card-main > .card-details-ls > .card-details-ls-content 
+.fa-star, 
+.wishlist > main >.course-item > .card-main > .card-details-ls > .card-details-ls-content 
+.fa-star-half-stroke {
+  color: #FFF500;
+}
+
+.wishlist > main >.course-item > .card-main > .card-heading { 
+  display: block;
+  width: 100%;
+  font-size: 1.6rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

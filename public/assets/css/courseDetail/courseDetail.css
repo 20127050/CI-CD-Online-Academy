@@ -1,0 +1,542 @@
+.info-container{
+    display:flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.content{
+    width: 60%;
+    height: 45rem;
+    background: #f1f3f5;
+}
+
+.info-content{
+    width: 100%;
+    margin: 2rem 15rem;
+    padding-right: 15rem;
+}
+
+.info-content p{
+    margin-top: 1rem;
+    font-size: 1.5rem;
+}
+
+.p-green{
+    color: #00A551;
+    font-weight: 600;   
+    font-size: 1.5rem;
+}
+
+.info-content h1{
+    font-size: 3.3rem;
+    margin-top: 2rem;
+    font-weight: 700;
+}
+
+.rating-content{
+    display:flex;
+    margin-top: 1.5rem;
+}
+
+.rating-content p{
+    border: 2px solid #D9480F;
+    color: #D9480F;
+    font-weight: 650;
+    padding: 0 0.6rem;
+    align-self: center;
+    margin: 0; 
+    font-size: 1.5rem;
+}
+
+.star-display{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 1.5rem;
+}
+
+.star-display img{
+    padding: 0 0.5rem;
+}
+
+.star-display p{
+    border: none;
+    color: #F59F00;
+    font-weight: 600;
+    padding: 0 0.6rem;
+    margin: 0; 
+    font-size: 1.5rem;
+}
+
+.order{
+    display: flex;
+    margin-top: 1rem;
+    gap: 2rem;
+}
+.add-to-cart{
+    padding: 1rem 0;
+    width: 18rem;
+    background: #00A551;
+    color: white;
+    font-weight: 700;
+    border: 2px solid #00A551;
+    font-size: 1.8rem;
+    margin-top: 1rem;
+}
+
+.buy-now{
+    padding: 1rem 0;
+    width: 18rem;
+    color: #00A551;
+    border: 2px solid #00A551;
+    font-weight: 700;
+    font-size: 1.8rem;
+    margin-top: 1rem;
+}
+
+.add-to-cart:hover{
+    background: #087f5b;
+}
+
+.buy-now:hover{
+    background: #dee2e6;
+}  
+
+.video{
+    width: 40%;
+    height: 45rem;
+    position: relative;
+    background: #f1f3f5;
+    height: 45rem;
+}
+
+.demo-img{
+    clip-path: polygon(16% 0, 100% 0, 100% 100%, 0% 100%);
+    opacity: 0.8;
+    width: 100%;
+    height: 45rem;
+}
+
+
+.play{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    width: 8rem;
+    height: 8rem;
+}
+
+.video button{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    width: 8rem;
+    height: 8rem;
+}
+
+.play:hover{
+    cursor: pointer;
+}
+
+.more{
+    position: absolute;
+    top: 93%;
+    left: 0px;
+    width: 108rem;
+    height: 8rem;
+    background: #CED4DA;
+    clip-path: polygon(0 0, 100% 0, 98.5% 100%, 0% 100%);
+    display: flex;
+    align-items: center;
+    gap: 5rem;
+    color: black;
+}
+
+.icon-content{
+    width: 25rem;
+    height: 8rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.more-margin{
+    margin-left: 5rem;
+}
+
+.more-width{
+    width: 60rem;
+}
+
+
+.informative-content{
+    width: 25rem;
+    height: 8rem;
+}
+
+.informative-content h2{
+    font-weight: 700;
+    margin: 2.2rem 0 0 1rem;
+    font-size: 1.4rem;
+}
+
+.informative-content p{
+    font-size: 1.4rem;
+    margin: 0 0 0 1rem;
+}
+
+.about-container{
+    width: 100%;
+    margin-top: 3rem;
+    color: black;
+}
+
+.about-container h1{
+    font-size: 4rem;
+    padding-top: 3rem;
+    text-align: center;
+    font-weight: 700;
+    
+}
+
+.detail{
+    /* background: #CED4DA; */
+    width: 60%;
+    margin: 2rem auto;
+    font-size: 1.5rem;
+}
+
+.course-preview{
+    width: 100%;
+    height: 60rem;
+    margin-top: 4.8rem;
+    background: #f1f3f5;
+    display: flex;
+    color: black;
+}
+
+.heading-cp{
+    width: 40%;
+    background: #adb5bd;
+    display: flex;
+    align-items: center;
+    clip-path: polygon(0 0, 100% 0, 82% 100%, 0% 100%);
+}
+
+.heading-cp h1{
+    font-size: 4rem;
+    font-weight: 700;
+    margin-left: 10rem;
+    color: black;
+}
+
+.content-cp{
+    width: 60%;
+}
+
+.content-cp-s{
+    width: 90%; 
+    margin: 2rem auto;
+}
+
+.total-length{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.total-length-lessons{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+
+.total-length p{
+    margin: 0;
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+.all-sections{
+    padding: 1rem;
+    background: #00A551;
+    color: white;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 1.5rem;
+}
+
+.all-sections:hover{
+    background: #087f5b;
+    color: white;
+}
+
+.link-video{
+    text-decoration: none;
+}
+
+.link-video:hover{
+    color: #00A551;;
+}
+
+.link-video h2{
+    font-size: 1.5rem;
+}
+
+.link-video p{
+    font-size: 1.5rem;
+}
+
+.section-video{
+    display: flex;
+    background: #dee2e6;
+    width: 100%;
+    height: 8rem;
+    margin-top: 2rem;
+    align-items: center;
+    gap: 3rem;
+}
+
+.header-content{
+    padding: 0;
+}
+
+.header-content h2{
+    margin-bottom: 0.2rem;
+    font-weight: 600;
+    font-size: 2rem;
+}
+
+.header-content p{
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.ins{
+    width: 100%;
+    height: 60rem;
+    margin-top: 4rem;
+    background: #f1f3f5;
+    display: flex;
+    color: black;
+}
+
+.heading-ins{
+    width: 40%;
+    background: black;
+    align-items: center;
+    clip-path: polygon(0 0, 100% 0, 82% 100%, 0% 100%);
+}
+
+.heading-ins h2{
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-left: 3rem;
+    margin-top: 7rem;
+    color: white;
+}
+
+.heading-ins p{
+    font-weight: 600;
+    margin-left: 3rem;
+    margin-top: 1rem;
+    color: white;
+}
+
+.content-ins{
+    width: 60%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.content-ins-s{
+    width: 75%; 
+    margin: 2rem auto;
+}
+
+.info-ins{
+    display: flex;
+    height: 20rem;;
+    margin-left: 3rem;
+    margin-top: 4rem;
+}
+
+.info-rating{
+    margin-left: 3rem;
+}
+
+.flex-rating {
+    margin: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.flex-rating p{
+    margin-left: 1rem;
+    font-size: 1.5rem;
+}
+
+.assess{
+    display: flex;
+    margin: 5rem 20rem;
+}
+
+.assessment{
+    width: 40%;   
+}
+
+.assessment h1{
+    font-weight: 700;
+    font-size: 2rem;
+}
+
+.comment{
+    width: 60%;
+}
+
+.rating-point{
+    display: flex;
+    margin-top: 3rem;
+    align-items: center;
+    gap: 1rem;
+}
+
+.rating-point h1{
+    font-size: 6rem;
+    font-weight: 700;
+    margin-right: 1.5rem;
+}
+
+.star-point{
+    margin: 0;
+}
+
+.header-like{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.content-like{
+    display: flex;
+    gap: 1rem;
+}
+.star-point p{
+    padding: 0;
+    margin: 0;
+    color: #00A551;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.star-chart{
+    margin-top: 3rem;
+    display: flex;
+    align-items: center;
+}
+
+.star-chart p{
+    margin: 0 2rem 0 0;
+    width: 6rem;
+}
+
+.progress{
+    width: 45%; 
+    height: 1rem;
+    margin-right: 2rem;
+}
+
+.progress-bar{
+    background: #F59F00;
+}
+
+.header-comment{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.header-comment h1{
+    font-weight: 700;
+    font-size: 2rem;
+    margin: 0;
+}
+
+.header-comment button{
+    font-weight: 600;
+    margin: 0;
+    border:none;
+}
+
+.header-comment button:hover{
+    color: #00A551;
+    cursor: pointer;
+}
+
+.comment-info{
+    background: #f1f3f5;
+    padding: 1.5rem;
+    margin-top: 3rem;
+    font-size: 1.5rem;
+}
+.comment-info p{
+    margin-top: 1rem;
+    margin-bottom: 0;
+    padding: 0;
+    font-size: 1.5rem;
+}
+
+.rating-point-under{
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.star-point-under{
+    margin: 0;
+}
+
+
+.star-point-under select{
+    font-weight: 500;
+    border: 1px solid #00A551;
+    padding: 0.5rem;
+    color:#00A551;
+}
+
+.input-comment{
+    padding: 0.5rem 1rem;
+    width: 100%;
+    margin-top: 1.5rem;
+}
+
+.button-submit{
+    padding: 0.5rem 2rem;
+    font-weight: 700;
+    color:white;
+    background: #00A551;
+    margin-top: 1rem;
+    border:none;
+}
+
+.button-submit:hover{
+    background: #087f5b;
+}
+
+.modal-content{
+    padding: 3rem;
+    border-radius: none;
+    display: flex;
+}
+
+.modal-content h1{
+    font-weight: 700;
+    color: #00A551;
+}
+

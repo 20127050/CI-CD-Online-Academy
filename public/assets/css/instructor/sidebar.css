@@ -1,0 +1,58 @@
+.my-side-bar {
+    width: 16%;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    /* padding: 2rem 0rem; */
+    padding: 7rem 0rem;
+    box-shadow: 0 0 5px rgba(0,0,0,20%);
+    position: sticky;
+    top: 0;
+}
+.my-side-bar a 
+{
+    color: #868e96;
+    font-weight: 700;
+    font-size: 1.6rem;
+    padding: 1rem 3rem;
+    text-decoration: none;
+}
+
+.my-side-bar a:hover
+{
+    color: #00A551;
+}
+
+.my-side-bar a:active
+{
+    color: #00A551;
+}
+
+.my-side-bar a.active
+{
+    color: #00A551;
+}
+
+.my-side-bar a
+{
+    display: flex;
+    gap: 1.8rem;
+    align-items: center;
+}
+.my-side-bar a:nth-child(3)
+{
+    gap: 2.2rem;
+}
+
+.go-to
+{
+    color: #808080;
+    font-weight: 700;
+    padding: 1rem;
+    margin-left: 1.2rem;
+    font-size: 1.6rem;
+    color: #00A551;
+    font-weight: 700;
+}
+
+

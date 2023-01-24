@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    {{!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0"> --}}
+    <title>Instructor - Online Academy{{#if HTMLTitle}} - {{HTMLTitle}}{{/if}}</title>
+    {{!-- BEGIN GLOBAL --}}
+    <script src="https://kit.fontawesome.com/46668bc562.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/assets/bootstrap.min.css" type="text/css" />
+    <script src="/assets/jquery.min.js"></script>
+    <script src="/assets/bootstrap.min.js"></script>
+    {{!-- END GLOBAL --}}
+    {{!-- bootstrap 4 --}}
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    {{!-- CSS --}}
+    <link rel="stylesheet" href="/assets/css/instructor/sidebar.css" type = "text/css" />
+    <link rel="stylesheet" href="/assets/css/instructor/add-course-content.css" type = "text/css" />
+    <link rel="stylesheet" href="/assets/css/instructor/add-course-description.css" type = "text/css" />
+    <link rel="stylesheet" href="/assets/css/instructor/course-preview.css" type = "text/css" />
+    <link rel="stylesheet" href="/assets/css/instructor/sidebar.css" type = "text/css" />
+    <link rel="stylesheet" href="/assets/css/instructor/my-courses.css" type = "text/css" />
+    <link rel="stylesheet" href="/assets/css/instructor/my-profile.css" type="text/css" />
+    <link rel="stylesheet" href="/assets/css/instructor/main.css" type = "text/css" />
+    <link rel="stylesheet" href="/assets/css/instructor/others.css" type = "text/css" />
+    <link rel="stylesheet" href="/assets/css/errors/404.css" type = "text/css" />
+    <link rel="stylesheet" href="/assets/css/index.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.3/plyr.css" type="text/css"  />
+    {{!-- WYSIWYG --}}
+    <script src="https://cdn.tiny.cloud/1/5349k560xmiluo0dqqnux6wtxwmvo7onlci36axz394fc8wd/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '#txtFullDescription',
+            menubar: false,
+            plugins: 'paste image link autolink lists table media',
+            toolbar: [
+                'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright | forecolor backcolor | table link image media',
+            ],
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.1.1/gsap.min.js"></script>
+</head>
+<body>
+    {{> instructor/navbar }}
+    <div class = "main">
+       {{> instructor/sidebar }}
+       {{{ body }}}
+    </div>
+   
+    {{> footer }}
+<script>
+   if (window.location.hash === "#_=_"){
+
+    // Check if the browser supports history.replaceState.
+    if (history.replaceState) {
+
+        // Keep the exact URL up to the hash.
+        var cleanHref = window.location.href.split("#")[0];
+
+        // Replace the URL in the address bar without messing with the back button.
+        history.replaceState(null, null, cleanHref);
+
+    } else {
+
+        // Well, you're on an old browser, we can get rid of the _=_ but not the #.
+        window.location.hash = "";
+
+    }
+
+}
+</script>
+<script src="/assets/js/errors/404.js"></script>
+</body>
+</html>

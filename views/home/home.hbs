@@ -1,0 +1,150 @@
+<div id="#top"></div>
+{{> home/carousel }}
+<main>
+    <div class="course-list">
+        <h1>Most views</h1>
+        <div class="course-list-wrapper">
+            <div
+                id="carouselMostView"
+                class="carousel slide course-ls"
+                data-bs-ride="false"
+            >
+                <div class="carousel-inner">
+                    {{#each mostviewCourse}}
+                        {{!-- {{course_name}} --}}
+                        <div class="carousel-item">
+                            {{> courseCard this }}
+                        </div>
+                    {{/each}}
+                </div>
+                <button
+                    class="carousel-control-prev"
+                    type="button"
+                >
+                    <i class="fa-solid fa-chevron-left"></i>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button
+                    class="carousel-control-next"
+                    type="button"
+                >
+                    <i class="fa-solid fa-chevron-right"></i>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+        <script>
+            const carouselWidthMostView = $("#carouselMostView.carousel.slide.course-ls > .carousel-inner")[0].scrollWidth;
+            const cardWidthMostView = $("#carouselMostView.carousel.slide.course-ls > .carousel-inner > .carousel-item").width() + 20;
+            let scrollPositionMostView = 0;
+
+            $("#carouselMostView.carousel.slide.course-ls .carousel-control-next").on("click", function () {
+                if (scrollPositionMostView < (carouselWidthMostView - cardWidthMostView * 4)) {
+                    scrollPositionMostView += cardWidthMostView;
+                    $("#carouselMostView.carousel.slide.course-ls > .carousel-inner").animate({ scrollLeft: scrollPositionMostView }, 500); //scroll left
+                }
+            });
+            $("#carouselMostView.carousel.slide.course-ls .carousel-control-prev").on("click", function () {
+                if (scrollPositionMostView > 0) {
+                    scrollPositionMostView -= cardWidthMostView;
+                    $("#carouselMostView.carousel.slide.course-ls > .carousel-inner").animate({ scrollLeft: scrollPositionMostView }, 500);
+                }
+            });
+        </script>
+    </div>
+
+    <div class="course-list">
+        <h1>Newest</h1> {{message}}
+        <div class="course-list-wrapper">
+            <div
+                id="carouselNewest"
+                class="carousel slide course-ls"
+                data-bs-ride="false"
+            >
+                <div class="carousel-inner">
+                    {{#each newestCourse}}
+                        {{!-- {{course_name}} --}}
+                        <div class="carousel-item">
+                            {{> courseCard this }}
+                        </div>
+                    {{/each}}
+                </div>
+                <button
+                    class="carousel-control-prev"
+                    type="button"
+                >
+                    <i class="fa-solid fa-chevron-left"></i>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button
+                    class="carousel-control-next"
+                    type="button"
+                >
+                    <i class="fa-solid fa-chevron-right"></i>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+        <script>
+            const carouselWidth = $("#carouselNewest.carousel.slide.course-ls > .carousel-inner")[0].scrollWidth;
+            const cardWidth = $("#carouselNewest.carousel.slide.course-ls > .carousel-inner > .carousel-item").width() + 20;
+            let scrollPosition = 0;
+
+            $("#carouselNewest.carousel.slide.course-ls .carousel-control-next").on("click", function () {
+                if (scrollPosition < (carouselWidth - cardWidth * 4)) {
+                    scrollPosition += cardWidth;
+                    $("#carouselNewest.carousel.slide.course-ls > .carousel-inner").animate({ scrollLeft: scrollPosition }, 500); //scroll left
+                }
+            });
+
+            $("#carouselNewest.carousel.slide.course-ls .carousel-control-prev").on("click", function () {
+                if (scrollPosition > 0) {
+                    scrollPosition -= cardWidth;
+                    $("#carouselNewest.carousel.slide.course-ls > .carousel-inner").animate({ scrollLeft: scrollPosition }, 500);
+                }
+            });
+        </script>
+    </div>
+
+    <div class="analyst-group">
+        <div class="analyst-item">
+            <i class="fa-solid fa-users icon"></i>
+            <span class="content">
+                <span>200.000+</span>
+                <span>users</span>
+            </span>
+        </div>
+        <div class="analyst-item">
+            <i class="fa-solid fa-layer-group icon"></i>
+            <span class="content">
+                <span>10+ different</span>
+                <span>fields</span>
+            </span>
+        </div>
+        <div class="analyst-item">
+            <i class="fa-solid fa-graduation-cap icon"></i>
+            <span class="content">
+                <span>10.000+</span>
+                <span>lectures</span>
+            </span>
+        </div>
+        <div class="analyst-item">
+            <i class="fa-solid fa-house-laptop icon"></i>
+            <span class="content">
+                <span>multi-platform</span>
+                <span>support</span>
+            </span>
+        </div>
+    </div>
+
+    <div class="category-view">
+        <h1>Most studied field</h1>
+        <div class="category-group">
+        {{#each topCategories.top}}
+            <div class='category-item {{lookup ../topCategories.colors @index}}'>
+                <i class="icon"># {{sum @index 1}}</i>
+                <a class="content" href='/courses{{this.slug}}'>{{this.title}}</a>
+            </div>
+        {{/each}}
+    </div>
+</main>

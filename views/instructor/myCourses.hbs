@@ -1,0 +1,45 @@
+{{!-- table data --}}
+<div class = "my-course">
+<div class = "heading">
+    <span>My Courses</span>
+    <a href = "/instructor/add-course-description" class = "new-course-btn"> <img src="/assets/svg/instructor/newcourse.svg" alt="new-course"> New Course</a>
+</div>
+<table class="table table-striped custom-table">
+  <thead>
+     <tr>
+      <th class = "index-heading" scope="col" >#</th>
+      <th class = "title-heading" scope="col" >Title</th>
+      <th class = "category-heading" scope="col" >Category</th>
+      <th class = "price-heading" scope="col">Price</th>
+      <th class = "date-heading" scope="col">Released</th>
+      <th class = "status-heading" scope="col">Status</th>
+      <th class = "edit-heading" style="visibility: hidden;">Edit</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#if this.empty}}
+      <tr style = "height: 100%;">
+         <td style = "text-align: left; font-size: 2rem;"> 
+            No data found!
+         </td>
+      </tr>
+      {{else}}
+        {{#each this.courseList}}
+        <tr>
+        <th class = "index" scope="row">{{index}}</th>
+        <td class = "title">{{name}}</td>
+        <td class = "category">{{category_title}}</td>
+        <td class = "price"><span class = "dollar">$</span>{{price}}</td>
+        <td class = "date" >{{format_date date}}</td>
+        {{#if finish}}
+          <td class = "status"><img src="/assets/svg/instructor/finish.svg" alt="finish"></td>
+          {{else}}
+           <td class = "status"><img src="/assets/svg/instructor/unfinished.svg" alt="finish"></td>
+        {{/if}}
+        <td class = "edit-btn"><a href = "/instructor/add-course-description/?course={{_id}}" class = "edit-btn"><img src="/assets/svg/instructor/edit-course.svg" alt="edit"></a></td>
+        </tr>
+        {{/each}}
+    {{/if}}
+  </tbody>
+</table>
+</div>

@@ -1,0 +1,705 @@
+<div>
+  <div class="info-container">
+    <div class="content">
+      <div class="info-content">
+        <p class="p-green">Course >
+          {{courseDetail.nameCategory}}
+          >
+          {{#each courseDetail.nameSubCategory}}{{this}} &nbsp;{{/each}}</p>
+        <h1>{{courseDetail.name}}</h1>
+        <p>{{courseDetail.description}}</p>
+        <div class="rating-content">
+          <p>Best seller</p>
+          <div class="star-display">
+            {{#times integerPart}}
+              <img src="/assets/svg/admin/star.svg" alt="star-icon" />
+            {{/times}}
+            {{#if isRemainder}}
+              <img src="/assets/svg/admin/haft-star.svg" alt="haft-star-icon" />
+            {{/if}}
+            <p>{{courseRating.avg_rating}}</p>
+            <p
+              style="color: #00A551; font-weight: 600; padding-left: 1rem; font-size: 1.7rem;"
+            > ( {{courseRating.num_reviews}} ratings ) </p>
+            <p
+              style="color: black; font-weight: 400; font-size: 1.7rem;"
+            >{{courseRating.viewer}} students</p>
+          </div>
+        </div>
+        <p
+          style="color: black; font-weight: 400; font-size: 1.2rem; font-style: italic;"
+        >Last updated {{dateUpdate}}</p>
+        <h1
+          style="color: black; font-weight: 700; font-size: 3.5rem;"
+        >{{courseDetail.price}} $</h1>
+        <div class="order">
+          {{#if isExist}}
+            <p style="padding: 1rem 4.5rem; color: #00A551; border: 2px solid #00A551; font-weight: 700; font-size: 1.8rem; margin-top: 1rem;">Owned</p>
+          {{else}}
+            {{#if (and auth authUser)}}
+              <form id="add-to-cart" action="/payment" method="post">
+                <input hidden name='course_id' value='{{courseRating.course_id}}'/>
+                <input type="submit" class="add-to-cart" value="Add to cart"/>
+              </form>
+              <form id="buynow" method="post" action="{{courseDetail.slug}}/buynow">
+                <input hidden name='course_id' value='{{courseRating.course_id}}'/>
+                <input type="submit" value="Buy now" class="buy-now" />
+              </form>
+              {{else}}
+                <form id="without-add-to-cart" action="/payment" method="post">
+                  <input hidden name='course_id' value='{{courseRating.course_id}}'/>
+                  <input type="submit" class="add-to-cart" value="Add to cart"/>
+                </form>
+                <form id="withoutlogin" method="post" action="{{courseDetail.slug}}/buynow">
+                  <input type="submit" value="Buy now" class="buy-now" />
+                </form>
+            {{/if}}
+            <script>
+              $("#withoutlogin").on("click",(event)=>{
+                alert("Please log in to buy course");
+              })
+              $("#without-add-to-cart").on("click",(event)=>{
+                alert("Please log in to buy course");
+              })
+            </script>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+
+    <div class="video">
+      <img src={{courseDetail.img}} class="demo-img" />
+      <img
+        src="/assets/svg/course/play.svg"
+        alt="play-button"
+        data-toggle="modal"
+        data-target="#introModal"
+        class="play"
+      />
+
+    </div>
+
+    <div class="more">
+      <div class="icon-content more-margin">
+        <img src="/assets/svg/course/clock.svg" alt="clock-icon" />
+        <div class="informative-content">
+          <h2>{{courseDetail.lectures.duration}}</h2>
+          <p>Videos, exercises, posts</p>
+        </div>
+      </div>
+
+      <div class="icon-content">
+        <img src="/assets/svg/course/infinite.svg" alt="infinite-icon" />
+        <div class="informative-content">
+          <h2>Access license</h2>
+          <p>Permanent full access</p>
+        </div>
+      </div>
+
+      <div class="icon-content more-width">
+        <img src="/assets/svg/course/instructor.svg" alt="instructor-icon" />
+        <div class="informative-content" style="width: 52rem;">
+          <h2>Instructor</h2>
+          <p>{{courseDetail.nameAuthor}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="introModal" role="dialog" aria-labelledby="myModal" aria-hidden="true">
+      <div
+        class="modal-dialog modal-xl"
+        style="top: 50% !important; transform: translateY(-55%) !important;"
+      >
+        <div class="modal-content" style="padding: 0; margin: 0;">
+          <video class=".vid" controls>
+            <source src={{courseDetail.lectures.sections.0.lessons.0.video}} type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+    <script>
+      $('#introModal').on('hide.bs.modal', function(e) {
+        this.querySelector('video').pause();
+      })
+    </script>
+  </div>
+  
+
+  <div class="course-preview">
+    <div class="heading-cp">
+      <h1>Course Preview</h1>
+    </div>
+    <div class="content-cp">
+      <div class="content-cp-s">
+        <div class="total-length">
+          <p>{{numberSection}}
+            sections -
+            {{courseDetail.lectures.total}}
+            lectures -
+            {{courseDetail.lectures.duration}}</p>
+          <div class="total-length-lessons">
+            <a href="{{courseDetail.lectures.sections.0.lessons.0.url}}" 
+            class="all-sections"
+            data-toggle="modal"
+            data-target="#allmodalsection"
+            >View all sections</a>
+            <a href="{{courseDetail.lectures.sections.0.lessons.0.url}}" class="all-sections">Learn now</a>
+          </div>
+        </div>
+        <a href="#" class="link-video" data-toggle="modal" data-target="#intro-0">
+          <div class="section-video" style="margin-top: 3rem;">
+            <img src={{courseDetail.img}} style="height: 8rem;" />
+            <div class="header-content">
+              <h2>{{courseDetail.lectures.sections.0.title}}</h2>
+              <p>{{courseDetail.lectures.sections.0.lessons.0.title}}</p>
+            </div>
+          </div>
+        </a>
+        <div class="modal fade" id="intro-0" role="dialog" aria-labelledby="intro-0l" aria-hidden="true">
+          <div
+            class="modal-dialog modal-xl"
+            style="top: 50% !important; transform: translateY(-55%) !important;"
+          >
+            <div class="modal-content" style="padding: 0; margin: 0;">
+              <video class=".vid" controls>
+                <source src={{courseDetail.lectures.sections.0.lessons.0.video}} type="video/mp4">
+              </video>
+            </div>
+          </div>
+        </div>
+        <script>
+          $('#intro-0').on('hide.bs.modal', function(e) {
+            this.querySelector('video').pause();
+          })
+        </script>
+        <a href="#" class="link-video"  data-toggle="modal" data-target="#intro-1">
+          <div class="section-video">
+            <img src={{courseDetail.img}} style="height: 8rem;" />
+            <div class="header-content">
+              <h2>{{courseDetail.lectures.sections.1.title}}</h2>
+              <p>{{courseDetail.lectures.sections.1.lessons.0.title}}</p>
+            </div>
+          </div>
+        </a>
+        <div class="modal fade" id="intro-1" role="dialog" aria-labelledby="intro-1" aria-hidden="true">
+          <div
+            class="modal-dialog modal-xl"
+            style="top: 50% !important; transform: translateY(-55%) !important;"
+          >
+            <div class="modal-content" style="padding: 0; margin: 0;">
+              <video class=".vid" controls>
+                <source src={{courseDetail.lectures.sections.1.lessons.0.video}} type="video/mp4">
+              </video>
+            </div>
+          </div>
+        </div>
+
+        <a href="#" class="link-video"  data-toggle="modal" data-target="#intro-2">
+          <div class="section-video">
+            <img src={{courseDetail.img}} style="height: 8rem;" />
+            <div class="header-content">
+              <h2>{{courseDetail.lectures.sections.2.title}}</h2>
+              <p>{{courseDetail.lectures.sections.2.lessons.0.title}}</p>
+            </div>
+          </div>
+        </a>
+        <div class="modal fade" id="intro-2" role="dialog" aria-labelledby="intro-2" aria-hidden="true">
+          <div
+            class="modal-dialog modal-xl"
+            style="top: 50% !important; transform: translateY(-55%) !important;"
+          >
+            <div class="modal-content" style="padding: 0; margin: 0;">
+              <video class=".vid" controls>
+                <source src={{courseDetail.lectures.sections.2.lessons.0.video}} type="video/mp4">
+              </video>
+            </div>
+          </div>
+        </div>
+        <a href="#" class="link-video" data-toggle="modal" data-target="#intro-3">
+          <div class="section-video">
+            <img src={{courseDetail.img}} style="height: 8rem;" />
+            <div class="header-content">
+              <h2>{{courseDetail.lectures.sections.3.title}}</h2>
+              <p>{{courseDetail.lectures.sections.3.lessons.0.title}}</p>
+            </div>
+          </div>
+        </a>
+        <div class="modal fade" id="intro-3" role="dialog" aria-labelledby="intro-3" aria-hidden="true">
+          <div
+            class="modal-dialog modal-xl"
+            style="top: 50% !important; transform: translateY(-55%) !important;"
+          >
+            <div class="modal-content" style="padding: 0; margin: 0;">
+              <video class=".vid" controls>
+                <source src={{courseDetail.lectures.sections.2.lessons.0.video}} type="video/mp4">
+              </video>
+            </div>
+          </div>
+        </div>
+        <a href="#" class="link-video" data-toggle="modal" data-target="#intro-4">
+          <div class="section-video">
+            <img src={{courseDetail.img}} style="height: 8rem;" />
+            <div class="header-content">
+              <h2>{{courseDetail.lectures.sections.4.title}}</h2>
+              <p>{{courseDetail.lectures.sections.4.lessons.0.title}}</p>
+            </div>
+          </div>
+        </a>
+        <div class="modal fade" id="intro-4" role="dialog" aria-labelledby="intro-4" aria-hidden="true">
+          <div
+            class="modal-dialog modal-xl"
+            style="top: 50% !important; transform: translateY(-55%) !important;"
+          >
+            <div class="modal-content" style="padding: 0; margin: 0;">
+              <video class=".vid" controls>
+                <source src={{courseDetail.lectures.sections.4.lessons.0.video}} type="video/mp4">
+              </video>
+            </div>
+          </div>
+        </div>
+        <script>
+          $('#intro-1').on('hide.bs.modal', function(e) {
+            this.querySelector('video').pause();
+          })
+          $('#intro-2').on('hide.bs.modal', function(e) {
+            this.querySelector('video').pause();
+          })
+          $('#intro-3').on('hide.bs.modal', function(e) {
+            this.querySelector('video').pause();
+          })
+          $('#intro-4').on('hide.bs.modal', function(e) {
+            this.querySelector('video').pause();
+          })
+        </script>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-container">
+    <h1>About this course</h1>
+    <div class="detail">
+      {{{courseDetail.details}}}
+    </div>
+  </div>
+
+  <div class="ins">
+    <div class="heading-ins">
+      <h2>Instructor</h2>
+      <h2 style="color: #51CF66; margin-top: 1rem;">{{courseDetail.nameAuthor}}</h2>
+      <p>Web Developer, Designer, and Teacher</p>
+      <div class="info-ins">
+        <img src={{courseDetail.img}} style="height: 20rem; width: 20rem;" />
+        <div class="info-rating">
+          <div class="flex-rating">
+            <img src="/assets/svg/course/star.svg" alt="star-icon" />
+            <p> {{avgRating}} Instructor Rating</p>
+          </div>
+          <div class="flex-rating">
+            <img src="/assets/svg/course/like.svg" alt="star-icon" />
+            <p> {{sumReview}} Reviewers</p>
+          </div>
+          <div class="flex-rating">
+            <img src="/assets/svg/course/student.svg" alt="student-icon" />
+            <p> {{sumViewer}} Students</p>
+          </div>
+          <div class="flex-rating">
+            <img src="/assets/svg/course/course.svg" alt="course-icon" />
+            <p> {{numCourse}} Courses</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="content-ins">
+      <div class="content-ins-s" style="font-size: 1.3rem;">
+        {{{authorDetail.description}}}
+      </div>
+    </div>
+  </div>
+
+  <div class="assess">
+    <div class="assessment">
+      <h1>Assessment</h1>
+      <div class="rating-point">
+        <h1>{{courseRating.avg_rating}}</h1>
+        <div class="star-point">
+          {{#times integerPart}}
+            <img
+              src="/assets/svg/course/star.svg"
+              alt="star-icon"
+              style="padding-bottom: 0.5rem;"
+            />
+          {{/times}}
+          {{#if isRemainder}}
+            <img
+              src="/assets/svg/course/haft-star.svg"
+              alt="haft-star-icon"
+              style="padding-bottom: 0.5rem;"
+            />
+          {{/if}}
+          <p>{{courseRating.num_reviews}} ratings</p>
+        </div>
+      </div>
+      <div class="star-chart">
+        <p>5 stars</p>
+        <div class="progress">
+          <div class="progress-bar" style="width:85%;"></div>
+        </div><br />
+        <p>85%</p>
+      </div>
+      <div class="star-chart">
+        <p>4 stars</p>
+        <div class="progress">
+          <div class="progress-bar" style="width:12%;"></div>
+        </div><br />
+        <p>12%</p>
+      </div>
+      <div class="star-chart">
+        <p>3 stars</p>
+        <div class="progress">
+          <div class="progress-bar" style="width:1.5%;"></div>
+        </div><br />
+        <p>1.5%</p>
+      </div>
+      <div class="star-chart">
+        <p>2 stars</p>
+        <div class="progress">
+          <div class="progress-bar" style="width:0.3%;"></div>
+        </div><br />
+        <p>0.3%</p>
+      </div>
+      <div class="star-chart">
+        <p>1 stars</p>
+        <div class="progress" style="width: 45%;">
+          <div
+            class="progress-bar"
+            style="width:1.2%; background: #F59F00;"
+          ></div>
+        </div><br />
+        <p>1.2%</p>
+      </div>
+    </div>
+    <div class="comment">
+      <div class="header-comment">
+        <h1>Comment</h1>
+        <button data-toggle="modal" data-target="#allCmt">View more</button>
+      </div>
+
+      {{#each this.getThreeLastComment}}
+        <div class="comment-info">
+          <div class="rating-point-under">
+            <img
+              src={{this.user.avatar}}
+              style="width: 6rem; height: 6rem;"
+            />
+            <div class="header-like">
+              <div class="star-point-under">
+                {{#each this.integerPart}}
+                  <img
+                    src="/assets/svg/course/star.svg"
+                    alt="star-icon"
+                    style="padding-bottom: 0.5rem;"
+                  />
+                {{/each}}
+                {{#if this.isRemainder}}
+                  <img
+                    src="/assets/svg/course/haft-star.svg"
+                    alt="haft-star-icon"
+                    style="padding-bottom: 0.5rem;"
+                  />
+                {{/if}}
+                <p
+                  style="color: black; font-weight: 500; margin: 0;"
+                >{{this.user.name}}
+                  - posted in 
+                  {{this.update}}</p>
+              </div>
+              <div class="content-like">
+                <p><img
+                    src="/assets/svg/course/likeIcon.svg"
+                    alt="haft-star-icon"
+                    style="padding: 0 0.5rem 0.5rem 0;"
+                  />{{like}}</p>
+                <p><img
+                    src="/assets/svg/course/unlikeIcon.svg"
+                    alt="haft-star-icon"
+                    style="padding: 0 0.5rem 0.5rem 0;"
+                  />{{dislike}}</p>
+              </div>
+            </div>
+          </div>
+          {{{this.content}}}
+        </div>
+      {{/each}}
+
+
+      <form method="POST" action="{{courseDetail.slug}}/cmt" class="comment-info">
+          <div class="rating-point-under">
+            <img src={{courseDetail.img}} style="height: 6rem; width: 6rem;" />
+            <div class="star-point-under">
+              <select name="ratingcmt">
+                <option value="5">5 stars</option>
+                <option value="4">4 stars</option>
+                <option value="3">3 stars</option>
+                <option value="2">2 stars</option>
+                <option value="1">1 stars</option>
+              </select>
+            </div>
+          </div>
+          <input
+            type="text"
+            class="input-comment"
+            placeholder="Enter your comment"
+            name="textcmt"
+          />
+          <input hidden name='course_id' value='{{courseRating.course_id}}'/>
+          <input type="submit" value="Post" class="button-submit" />
+      </form>
+
+    </div>
+  </div>
+
+    <div class="course-list">
+      <h1>Most views</h1>
+      <div class="course-list-wrapper">
+          <div
+              id="carouselMostView"
+              class="carousel slide course-ls"
+              data-bs-ride="false"
+          >
+              <div class="carousel-inner">
+                  {{#each mostviewCourse}}
+                      {{!-- {{course_name}} --}}
+                      <div class="carousel-item">
+                          
+                        <div class="course-card">
+                            <div class="course-card-overlay">
+                                <a class="button-cs" href="{{course_slug}}">More Details</a>
+                                {{#if my_courses}}
+                                <a class="button-cs learning" href="{{course_slug}}/learn/lecture">Learn Now</a>
+                                {{/if}}
+                            </div>
+                            <img
+                                src="{{course_img}}"
+                                class="course-card-img"
+                                alt="course-img"
+                            />
+                            {{#if course_status}}
+                            <div class="status {{course_status}}">{{course_status}}</div>
+                            {{/if}}
+                            <div class="card-main">
+                                <h1 class="card-heading">{{course_name}}</h1>
+                                <div class="card-author" title="{{course_author}}">
+                                    <i class="fa-solid fa-user-pen"></i>
+                                    <span>{{course_author}}</span>
+                                </div>
+                                <div class="card-details-ls">
+                                    <div class="card-details-ls-icon">
+                                        <span><b>{{course_rate}}</b></span>
+                                        <span><i
+                                                class="fa-regular fa-eye"
+                                            ></i></span>
+                                        <span><i
+                                                class="fa-solid fa-tag"
+                                            ></i></span>
+                                    </div>
+                                    <div class="card-details-ls-content">
+                                        <div class="card-details-ls-item">
+                                            <span class="flex g-0">
+                                            {{#if (gt course_rate 0)}}
+                                                {{#if (gte course_rate 1)}}
+                                                <i class="fa-solid fa-star"></i>
+                                                {{else}}
+                                                <i class="fa-solid fa-star-half-stroke"></i>
+                                                {{/if}}
+                                            {{else}}
+                                                <i class="fa-regular fa-star"></i>
+                                            {{/if}}
+                                            
+                                            {{#if (gt course_rate 1)}}
+                                                {{#if (gte course_rate 2)}}
+                                                <i class="fa-solid fa-star"></i>
+                                                {{else}}
+                                                <i class="fa-solid fa-star-half-stroke"></i>
+                                                {{/if}}
+                                            {{else}}
+                                                <i class="fa-regular fa-star"></i>
+                                            {{/if}}
+
+                                            {{#if (gt course_rate 2)}}
+                                                {{#if (gte course_rate 3)}}
+                                                <i class="fa-solid fa-star"></i>
+                                                {{else}}
+                                                <i class="fa-solid fa-star-half-stroke"></i>
+                                                {{/if}}
+                                            {{else}}
+                                                <i class="fa-regular fa-star"></i>
+                                            {{/if}}
+
+                                            {{#if (gt course_rate 3)}}
+                                                {{#if (gte course_rate 4)}}
+                                                <i class="fa-solid fa-star"></i>
+                                                {{else}}
+                                                <i class="fa-solid fa-star-half-stroke"></i>
+                                                {{/if}}
+                                            {{else}}
+                                                <i class="fa-regular fa-star"></i>
+                                            {{/if}}
+
+                                            {{#if (gt course_rate 4)}}
+                                                {{#if (gte course_rate 5)}}
+                                                <i class="fa-solid fa-star"></i>
+                                                {{else}}
+                                                <i class="fa-solid fa-star-half-stroke"></i>
+                                                {{/if}}
+                                            {{else}}
+                                                <i class="fa-regular fa-star"></i>
+                                            {{/if}}
+                                            </span>
+                                            <small>({{course_vote}})</small>
+                                        </div>
+                                        <div>
+                                            <small>{{course_viewer}} views</small>
+                                        </div>
+                                        <div>
+                                            <small>{{course_category}}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <span class="card-price">
+                                        <div class="position-relative">
+                                        {{#if course_sale}}
+                                            <span class="remove-line"></span>
+                                        {{/if}}
+                                            <i class="fa-solid fa-dollar"></i>
+                                            <span class="price-number">{{course_price}}</span>
+                                        </div>
+                                        {{#if course_sale}}
+                                            <i class="fa-solid fa-arrow-right"></i>
+                                            <b class="sale-number">
+                                                <i class="fa-solid fa-dollar"></i>
+                                                <span>{{course_sale}}</span>
+                                            </b>
+                                        {{/if}}
+                                    </span>
+                                    <span class="card-clock">
+                                        <i class="fa-regular fa-clock"></i>
+                                        <span>{{course_date}}</span>
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                                </div>
+                                          {{/each}}
+                                      </div>
+                                      <button
+                                          class="carousel-control-prev"
+                                          type="button"
+                                      >
+                                          <i class="fa-solid fa-chevron-left"></i>
+                                          <span class="visually-hidden">Previous</span>
+                                      </button>
+                                      <button
+                                          class="carousel-control-next"
+                                          type="button"
+                                      >
+                                          <i class="fa-solid fa-chevron-right"></i>
+                                          <span class="visually-hidden">Next</span>
+                                      </button>
+                                  </div>
+                              </div>
+                              <script>
+                                  const carouselWidthMostView = $("#carouselMostView.carousel.slide.course-ls > .carousel-inner")[0].scrollWidth;
+                                  const cardWidthMostView = $("#carouselMostView.carousel.slide.course-ls > .carousel-inner > .carousel-item").width() + 20;
+                                  let scrollPositionMostView = 0;
+
+                                  $("#carouselMostView.carousel.slide.course-ls .carousel-control-next").on("click", function () {
+                                      if (scrollPositionMostView < (carouselWidthMostView - cardWidthMostView * 4)) {
+                                          scrollPositionMostView += cardWidthMostView;
+                                          $("#carouselMostView.carousel.slide.course-ls > .carousel-inner").animate({ scrollLeft: scrollPositionMostView }, 500); //scroll left
+                                      }
+                                  });
+                                  $("#carouselMostView.carousel.slide.course-ls .carousel-control-prev").on("click", function () {
+                                      if (scrollPositionMostView > 0) {
+                                          scrollPositionMostView -= cardWidthMostView;
+                                          $("#carouselMostView.carousel.slide.course-ls > .carousel-inner").animate({ scrollLeft: scrollPositionMostView }, 500);
+                                      }
+                                  });
+                              </script>
+                            </div>
+
+  <div class="modal" id="allCmt">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <h1>All comments</h1>
+          {{#each courseRating.reviews}}
+          <div class="comment-info">
+            <div class="header-like">
+                <div class="rating-point-under">
+                  <img
+                    src={{this.user.avatar}}
+                    style="width: 6rem; height: 6rem;"
+                  />
+                  <div class="star-point-under">
+              {{#each this.integerPart}}
+                <img
+                  src="/assets/svg/course/star.svg"
+                  alt="star-icon"
+                  style="padding-bottom: 0.5rem;"
+                />
+              {{/each}}
+              {{#if this.isRemainder}}
+                <img
+                  src="/assets/svg/course/haft-star.svg"
+                  alt="haft-star-icon"
+                  style="padding-bottom: 0.5rem;"
+                />
+              {{/if}}
+                    <p
+                      style="color: black; font-weight: 500; margin: 0;"
+                    >{{this.user.name}}
+                      - posted in
+                      {{this.update}}</p>
+                  </div>
+              </div>
+             <div class="content-like">
+                <p><img
+                    src="/assets/svg/course/likeIcon.svg"
+                    alt="haft-star-icon"
+                    style="padding: 0 0.5rem 0.5rem 0;"
+                  />{{like}}</p>
+                <p><img
+                    src="/assets/svg/course/unlikeIcon.svg"
+                    alt="haft-star-icon"
+                    style="padding: 0 0.5rem 0.5rem 0;"
+                  />{{dislike}}</p>
+              </div>
+          </div>
+                {{{this.content}}}
+            </div>
+          {{/each}}
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade bd-example-modal-lg" id="allmodalsection" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title" id="exampleModalLongTitle">Course contents</h5>
+        </div>
+        <div class="modal-body">
+          {{#each courseDetail.lectures.sections}}
+            <h2>{{title}}</h2>
+            <ol>
+              {{#each lessons}}
+                <li style="margin-left: 2rem;">{{title}}</li>
+              {{/each}}
+            </ol>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
